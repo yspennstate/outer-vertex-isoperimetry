@@ -1,0 +1,8 @@
+formal/.lake/
+formal/lake-manifest.json
+*.aux
+*.log
+*.out
+*.fls
+*.fdb_latexmk
+__pycache__/

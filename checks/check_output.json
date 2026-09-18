@@ -1,0 +1,17 @@
+{
+  "status": "ALL_EXACT_CHECKS_PASS",
+  "max_atlas_order": 7,
+  "counts": {
+    "graphs": 1252,
+    "local_additions": 228422,
+    "closure_order_checks": 143670,
+    "terminal_checks": 143670,
+    "weighted_transfer_cases": 431010,
+    "regular_tree_completion_cases": 207243,
+    "finite_scale_cases": 33474,
+    "degree_face_pairs": 247007,
+    "sharpness_parameter_checks": 8
+  },
+  "arithmetic": "integer and fractions.Fraction; no floating point",
+  "scope": "Finite checks of identities and consequences; not a proof of infinite theorems, not a novelty check, not formal proof-assistant verification."
+}

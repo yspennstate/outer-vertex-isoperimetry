@@ -1,0 +1,528 @@
+\documentclass[11pt]{amsart}
+\usepackage[a4paper,margin=1.05in]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern,amsmath,amssymb,amsthm,mathtools,microtype,booktabs}
+\usepackage[hidelinks]{hyperref}
+\hypersetup{pdftitle={Outer vertex-isoperimetry of regular plane tessellations},pdfauthor={Yitzchak Shmalo}}
+\setlength{\emergencystretch}{1.5em}
+\numberwithin{equation}{section}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{lemma}[theorem]{Lemma}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+\newcommand{\hE}{h_E}
+\newcommand{\hV}{h_V}
+\newcommand{\hI}{h_{\mathrm{in}}}
+\newcommand{\bE}{\partial_E}
+\newcommand{\bV}{\partial_V}
+\newcommand{\bI}{\partial_{\mathrm{in}}}
+\newcommand{\cl}{\operatorname{cl}_2}
+\newcommand{\vol}{\operatorname{vol}}
+\newcommand{\EE}{\mathcal E}
+\newcommand{\VV}{\mathcal V}
+\newcommand{\R}{\mathbb R}
+\newcommand{\N}{\mathbb N}
+\title[Outer vertex-isoperimetry]{Outer vertex-isoperimetry of regular plane tessellations}
+\author{Yitzchak Shmalo}
+\address{Einstein Institute of Mathematics, The Hebrew University of Jerusalem, Jerusalem, Israel}
+\email{yitzchak.shmalo@gmail.com}
+\date{18 September 2026}
+\subjclass[2020]{Primary 05C63; Secondary 05C10, 52C20, 60K35}
+\keywords{Vertex-isoperimetric constant, edge expansion, plane tessellation, hyperbolic graph, bootstrap closure}
+\begin{document}
+\begin{abstract}
+We determine the outer vertex-isoperimetric constant of every regular, co-regular plane tessellation with finite face degree at least five. If the vertex degree is $d$, the face degree is $f$, and $1/d+1/f\le 1/2$, the constant is
+$(d-2)\sqrt{1-4/((d-2)(f-2))}$.
+Together with the triangular and quadrangular cases of Haslegrave and Panagiotis, this answers the finite-faced regular/co-regular part of Lyons--Peres Question~6.20. The proof follows from a general principle: an infinite simple graph of maximum degree $\Delta$ has equal edge and outer vertex-isoperimetric constants whenever its edge constant is at least $\Delta-3$. The constant $3$ is optimal uniformly in the degree. We prove a weighted version of this principle, quantitative bounds on the closure of nearly minimizing sets, sharp comparisons for tessellations with varying face degrees, and finite-scale and anchored variants.
+\end{abstract}
+\maketitle
+
+\section{Introduction}
+For an infinite locally finite simple graph $G=(V,E)$ and a finite nonempty set $K\subset V$, let
+\[
+\bE K=\{xy\in E:x\in K,\ y\notin K\},\qquad
+\bV K=\{y\notin K:N(y)\cap K\ne\varnothing\}.
+\]
+Edges are undirected and are counted once. The edge and outer vertex-isoperimetric constants are
+\begin{equation}\label{eq:definitions}
+\hE(G)=\inf_{0<|K|<\infty}\frac{|\bE K|}{|K|},\qquad
+\hV(G)=\inf_{0<|K|<\infty}\frac{|\bV K|}{|K|}.
+\end{equation}
+Every outer boundary vertex is incident to at least one boundary edge, and hence $\hV(G)\le\hE(G)$. The inequality can be strict even for regular tessellations of the hyperbolic plane.
+
+The edge constant of a regular plane tessellation was computed independently by H\"aggstr\"om, Jonasson, and Lyons~\cite{HJL} and by Higuchi and Shirai~\cite{HS}. If every vertex has degree $d$ and every face has degree $f$, its value is
+\begin{equation}\label{eq:Phi}
+\Phi(d,f)=(d-2)\sqrt{1-\frac4{(d-2)(f-2)}}.
+\end{equation}
+Lyons and Peres ask in Question~6.20 of~\cite{LP} for the corresponding outer vertex constant. Haslegrave and Panagiotis~\cite{HP} determined it for triangular and quadrangular tessellations. Oh~\cite{Oh} obtained sharp edge-isoperimetric comparisons under vertex- and face-degree bounds and discussed the remaining vertex question separately. We determine the vertex constant for the remaining finite face degrees.
+
+A \emph{plane tessellation} below is a connected simple graph embedded locally finitely in the plane, with every face a finite polygon, every edge incident to two distinct faces, and any two distinct closed faces intersecting in at most one vertex or one edge. A tessellation is $(d,f)$-regular if all vertex degrees are $d$ and all face degrees are $f$. This is the usual regular/co-regular tessellation class; it includes the regular Euclidean and hyperbolic tilings.
+
+\begin{theorem}\label{thm:tiling}
+Let $G$ be an infinite $(d,f)$-regular plane tessellation, where $d,f\ge3$ are finite and $1/d+1/f\le1/2$. If $f\ge5$, then
+\begin{equation}\label{eq:main}
+\hV(G)=\hE(G)=\Phi(d,f).
+\end{equation}
+In particular, $\hV(H_{5,5})=\sqrt5$, where the first parameter denotes vertex degree and the second denotes face degree.
+\end{theorem}
+
+Together with~\cite{HP}, Theorem~\ref{thm:tiling} gives the answer for every finite-faced regular plane tessellation. It does not determine the constants for arbitrary transitive plane graphs, the further class mentioned in Question~6.20. Nor is~\eqref{eq:main} an identity for all face degrees: the triangular and quadrangular vertex constants generally differ from~\eqref{eq:Phi}.
+
+The main step is independent of the embedding. In fact, regularity is unnecessary.
+
+\begin{theorem}\label{thm:degree}
+Let $G$ be an infinite locally finite simple graph of maximum degree at most $\Delta$. If
+\begin{equation}\label{eq:threshold}
+\hE(G)\ge\Delta-3,
+\end{equation}
+then $\hV(G)=\hE(G)$. The number $3$ cannot be replaced by any larger absolute constant in a statement valid for all degrees, even when restricted to regular hyperbolic tessellations.
+\end{theorem}
+
+The proof enlarges a finite set whenever an outside vertex has at least two neighbors inside. This is the deterministic two-neighbor bootstrap rule. The edge-boundary counting estimate used for termination also appears in the proof of~\cite[Theorem~1.4]{BPP}. Here we combine it with a second defect, defined using the outer vertex boundary, which cannot increase. At the terminal set each outer boundary vertex has exactly one neighbor inside, so the two boundaries have the same size. This transfers an edge inequality to a vertex inequality without loss.
+
+We formulate the transfer with vertex-dependent weights and additive constants in Section~\ref{sec:transfer}. Section~\ref{sec:stability} quantifies the enlargement and compares nearly minimizing sets for the two constants. The tessellation formula and sharp degree comparisons follow in Sections~\ref{sec:tessellations} and~\ref{sec:comparisons}. Section~\ref{sec:sharpness} proves the optimality assertion in Theorem~\ref{thm:degree}. Section~\ref{sec:variants} gives finite-scale and anchored versions.
+
+\section{A weighted boundary-transfer principle}\label{sec:transfer}
+Throughout this section $G$ is locally finite and simple. A set $L\subseteq V$ is \emph{two-neighbor closed} if every vertex outside $L$ has at most one neighbor in $L$. The intersection of any family of such sets is again two-neighbor closed. We denote the smallest two-neighbor closed superset of $K$ by $\cl K$; it exists since $V$ is closed. This closure need not be finite on an arbitrary graph.
+
+For $a:V\to\R$, write $a(K)=\sum_{v\in K}a(v)$ when $K$ is finite.
+
+\begin{theorem}[Weighted transfer]\label{thm:weighted}
+Suppose $a:V\to\R$ and $\beta\in\R$ satisfy
+\begin{align}
+|\bE K|&\ge a(K)+\beta
+&&\text{for every finite nonempty }K\subset V,\label{eq:weighted-edge}\\
+a(v)&\ge\deg(v)-3
+&&\text{for every }v\in V.\label{eq:weighted-local}
+\end{align}
+Then
+\begin{equation}\label{eq:weighted-vertex}
+|\bV K|\ge a(K)+\beta
+\qquad(0<|K|<\infty).
+\end{equation}
+Moreover, $\cl K$ is finite and
+\begin{equation}\label{eq:weighted-time}
+|\cl K\setminus K|\le |\bE K|-a(K)-\beta.
+\end{equation}
+With $\gamma(v)=a(v)-\deg(v)+3\ge0$, the stronger bound
+\begin{equation}\label{eq:weighted-surplus}
+|\bV K|-a(K)-\beta
+\ge\sum_{v\in\cl K\setminus K}\gamma(v)
+\end{equation}
+holds as well.
+\end{theorem}
+
+\begin{proof}
+Start from $K_0=K$. If $v\notin K_j$ has $r=|N(v)\cap K_j|\ge2$, put $K_{j+1}=K_j\cup\{v\}$. Write $s=\deg(v)$. Exactly $r$ old boundary edges become internal and $s-r$ new edges cross the boundary. Thus
+\begin{equation}\label{eq:edge-update}
+|\bE K_{j+1}|-|\bE K_j|=s-2r.
+\end{equation}
+The vertex $v$ leaves the outer boundary. Every other old boundary vertex remains there, and at most $s-r$ new vertices enter it. Consequently
+\begin{equation}\label{eq:vertex-update}
+|\bV K_{j+1}|-|\bV K_j|\le s-r-1.
+\end{equation}
+
+Define
+\[
+\EE(L)=|\bE L|-a(L)-\beta,\qquad
+\VV(L)=|\bV L|-a(L)-\beta.
+\]
+By~\eqref{eq:weighted-edge}, $\EE(L)\ge0$ for every finite nonempty $L$. Equations~\eqref{eq:edge-update} and~\eqref{eq:weighted-local} give
+\begin{equation}\label{eq:Edecrease}
+\EE(K_{j+1})-\EE(K_j)
+=s-2r-a(v)=-\gamma(v)-(2r-3)\le-1.
+\end{equation}
+The process therefore stops after at most $\lfloor\EE(K)\rfloor$ additions. Let $C$ be its terminal set. Every outer boundary vertex of $C$ has exactly one neighbor in $C$, whence
+\begin{equation}\label{eq:terminal}
+|\bV C|=|\bE C|,\qquad \VV(C)=\EE(C)\ge0.
+\end{equation}
+On the other hand,~\eqref{eq:vertex-update} gives
+\begin{equation}\label{eq:Vdecrease}
+\VV(K_{j+1})-\VV(K_j)
+\le s-r-1-a(v)=-\gamma(v)-(r-2)\le-\gamma(v).
+\end{equation}
+Summing and using~\eqref{eq:terminal} proves~\eqref{eq:weighted-vertex} and~\eqref{eq:weighted-surplus}, with $C$ in place of $\cl K$.
+
+To identify $C$, let $L$ be any two-neighbor closed set containing $K$. Inductively, every vertex added to $K_j\subseteq L$ has two neighbors in $L$ and hence belongs to $L$. Thus $C\subseteq L$. Since $C$ is itself closed, it is $\cl K$. In particular the terminal set is independent of the choices made during the process. The bound on the number of additions is~\eqref{eq:weighted-time}.
+\end{proof}
+
+\begin{proof}[Proof of the equality assertion in Theorem~\ref{thm:degree}]
+Take $a(v)=h:=\hE(G)$ and $\beta=0$. The edge inequality is the definition of $h$, and $h\ge\Delta-3\ge\deg(v)-3$. Theorem~\ref{thm:weighted} yields $|\bV K|\ge h|K|$ for every finite $K$. Hence $\hV(G)\ge h$, and the reverse inequality follows from $|\bV K|\le|\bE K|$.
+\end{proof}
+
+\begin{corollary}\label{cor:subcubic}
+Every infinite simple graph of maximum degree at most three has equal edge and outer vertex-isoperimetric constants.
+\end{corollary}
+\begin{proof}
+Use $\Delta=3$ and $\hE(G)\ge0$.
+\end{proof}
+
+\begin{remark}
+Neither a constant degree nor an embedding was used in the transfer. The local condition~\eqref{eq:weighted-local} also allows unbounded degrees when the weights grow with the degrees. The counting measure in~\eqref{eq:definitions} is fixed throughout; no half-volume restriction on finite sets is imposed.
+\end{remark}
+
+The weighted form applies, in particular, to degree-volume estimates. Suppose $G$ has no isolated vertices and set
+\[
+\vol(K)=\sum_{v\in K}\deg(v),\qquad
+\hE^{\mathrm{vol}}(G)=\inf_K\frac{|\bE K|}{\vol(K)},\qquad
+\hV^{\mathrm{vol}}(G)=\inf_K\frac{|\bV K|}{\vol(K)}.
+\]
+Only the denominator is weighted in the last expression; the outer boundary is still counted by vertices.
+
+\begin{corollary}\label{cor:volume}
+Let $h=\hE^{\mathrm{vol}}(G)$. If
+\begin{equation}\label{eq:volume-threshold}
+(1-h)\deg(v)\le3\qquad(v\in V),
+\end{equation}
+then $\hV^{\mathrm{vol}}(G)=\hE^{\mathrm{vol}}(G)$. More generally, if $|\bE K|\ge c\vol(K)+\beta$ for every finite nonempty $K$ and $(1-c)\deg(v)\le3$ for every $v$, then $|\bV K|\ge c\vol(K)+\beta$.
+\end{corollary}
+\begin{proof}
+Apply Theorem~\ref{thm:weighted} with $a(v)=h\deg(v)$ or $a(v)=c\deg(v)$, respectively. The reverse inequality for the constants is again pointwise.
+\end{proof}
+
+\section{Closure size and nearly minimizing sets}\label{sec:stability}
+The two defects also measure how far an almost minimizing set is from being closed.
+
+\begin{theorem}\label{thm:stability}
+Let $G$ have maximum degree at most $\Delta$, let $h=\hE(G)\ge\Delta-3$, and put $\gamma=h-\Delta+3$. For finite nonempty $K$, set
+\[
+D_E(K)=|\bE K|-h|K|,\qquad
+D_V(K)=|\bV K|-h|K|,\qquad C=\cl K.
+\]
+Then
+\begin{align}
+|C\setminus K|&\le\frac{D_E(K)}{\gamma+1},\label{eq:closure-edge}\\
+D_V(K)&\ge D_E(C)+\gamma|C\setminus K|.\label{eq:closure-vertex}
+\end{align}
+If $\gamma>0$, then also
+\begin{align}
+|C\setminus K|&\le\frac{D_V(K)}\gamma,\label{eq:closure-near}\\
+0\le D_V(K)\le D_E(K)&\le\frac{h+2}{\gamma}D_V(K).\label{eq:defect-equivalence}
+\end{align}
+In particular, every sequence of finite sets is minimizing for $\hV$ if and only if it is minimizing for $\hE$, provided $h>\Delta-3$.
+\end{theorem}
+
+\begin{proof}
+At an addition of a vertex of degree $s\le\Delta$ having $r\ge2$ neighbors in the current set,
+\[
+\Delta D_E=s-2r-h\le-(\gamma+1),\qquad
+\Delta D_V\le s-r-1-h\le-\gamma.
+\]
+At the terminal set $C$, $D_V(C)=D_E(C)\ge0$. Summation gives~\eqref{eq:closure-edge}--\eqref{eq:closure-near}.
+
+Let $B_2(K)$ be the set of vertices outside $K$ having at least two neighbors in $K$. Each belongs to $C\setminus K$, since the number of its neighbors in the growing set cannot decrease. Therefore
+\begin{align*}
+|\bE K|-|\bV K|
+&=\sum_{v\in\bV K}\bigl(|N(v)\cap K|-1\bigr)\\
+&\le(\Delta-1)|B_2(K)|
+\le(\Delta-1)|C\setminus K|.
+\end{align*}
+Using~\eqref{eq:closure-near},
+\[
+D_E(K)\le D_V(K)+\frac{\Delta-1}{\gamma}D_V(K)
+=\frac{h+2}{\gamma}D_V(K).
+\]
+The other inequalities in~\eqref{eq:defect-equivalence} follow from Theorem~\ref{thm:degree} and $|\bV K|\le|\bE K|$. Dividing by $|K|$ proves the last assertion.
+\end{proof}
+
+\begin{corollary}\label{cor:minimizers}
+Under the hypotheses of Theorem~\ref{thm:stability}, both constants can be approached by finite two-neighbor closed sets. If $h>\Delta-3$ and
+\[
+|\bV K|\le(h+\varepsilon)|K|,
+\]
+then
+\[
+|\cl K\setminus K|\le\frac{\varepsilon}{h-\Delta+3}|K|,
+\qquad
+\frac{|\bE\cl K|}{|\cl K|}
+=\frac{|\bV\cl K|}{|\cl K|}\le h+\varepsilon.
+\]
+Moreover, at most $\varepsilon|K|/(h-\Delta+3)$ vertices of $\bV K$ have two or more neighbors in $K$.
+\end{corollary}
+
+\begin{proof}
+Choose an edge-minimizing sequence $K_j$. Then $0\le D_V(K_j)\le D_E(K_j)=o(|K_j|)$. By~\eqref{eq:closure-vertex}, the closed sets $C_j=\cl K_j$ satisfy
+\[
+0\le\frac{D_E(C_j)}{|C_j|}\le\frac{D_V(K_j)}{|K_j|}\longrightarrow0.
+\]
+Their edge and vertex boundaries have equal sizes. The remaining assertions follow from~\eqref{eq:closure-near},~\eqref{eq:closure-vertex}, and $B_2(K)\subseteq\cl K\setminus K$.
+\end{proof}
+
+For $H_{5,5}$ the margin is $\gamma=\sqrt5-2$. Thus adding at most $(\sqrt5+2)\varepsilon|K|$ vertices makes an $\varepsilon$-minimizer two-neighbor closed. The defect comparison becomes
+\[
+D_V(K)\le D_E(K)\le(9+4\sqrt5)D_V(K).
+\]
+These bounds concern arbitrary finite sets, not only balls or unions of faces.
+
+\section{Regular plane tessellations}\label{sec:tessellations}
+We use the exact edge formula~\eqref{eq:Phi} from~\cite{HJL,HS}. It is also the regular specialization of Oh's lower and upper comparisons~\cite[Theorems~1, 3, and~4]{Oh}.
+
+\begin{proof}[Proof of Theorem~\ref{thm:tiling}]
+Write $h=\Phi(d,f)$. For $d\ge4$ and $f\ge5$,
+\begin{align}
+h^2-(d-3)^2
+&=2d-5-\frac{4(d-2)}{f-2}\notag\\
+&\ge2d-5-\frac{4(d-2)}3
+=\frac{2d-7}{3}>0.\label{eq:tiling-threshold}
+\end{align}
+Both $h$ and $d-3$ are nonnegative, so $h>d-3$. If $d=3$, admissibility forces $f\ge6$, and $h\ge0=d-3$. Thus Theorem~\ref{thm:degree} applies in every case. At $(d,f)=(3,6)$ both constants vanish. At $(5,5)$, $h=3\sqrt{1-4/9}=\sqrt5$.
+\end{proof}
+
+For completeness, the values for all finite-faced regular plane tessellations are
+\begin{equation}\label{eq:all-cases}
+\hV(H_{d,f})=
+\begin{cases}
+\dfrac{d-6+\sqrt{(d-2)(d-6)}}2,&f=3,\ d\ge6,\\[2mm]
+\dfrac{d-4+\sqrt{d(d-4)}}2,&f=4,\ d\ge4,\\[2mm]
+\Phi(d,f),&f\ge5,\quad 1/d+1/f\le1/2.
+\end{cases}
+\end{equation}
+The first two lines are the results of Haslegrave and Panagiotis~\cite[Theorems~18 and~23]{HP}, with the Euclidean cases obtained from amenability. The positive roots in~\eqref{eq:all-cases} can equivalently be read from the ball recurrences~(2) and~(5) in their proofs. Only the third line is proved here.
+
+\subsection{Inner vertex boundaries}
+The inner vertex boundary is
+\[
+\bI K=\{x\in K:N(x)\not\subseteq K\},\qquad
+\hI(G)=\inf_{0<|K|<\infty}\frac{|\bI K|}{|K|}.
+\]
+The following standard relation, recorded for example in~\cite[Section~7]{Oh}, gives its exact value as well.
+
+\begin{proposition}\label{prop:inner}
+For every locally finite graph with finite outer vertex constant,
+\[
+\hI(G)=\frac{\hV(G)}{1+\hV(G)}.
+\]
+In particular, under the hypotheses of Theorem~\ref{thm:tiling},
+\[
+\hI(G)=\frac{\Phi(d,f)}{1+\Phi(d,f)}.
+\]
+\end{proposition}
+\begin{proof}
+For finite $K$, put $A=K\setminus\bI K$. If $A\ne\varnothing$, then $\bV A\subseteq\bI K$, and hence
+\[
+|\bI K|\ge\hV(G)(|K|-|\bI K|).
+\]
+If $A=\varnothing$, the resulting lower bound is automatic. This proves $\hI\ge\hV/(1+\hV)$.
+
+Conversely, for finite nonempty $A$ set $K=A\cup\bV A$. Every neighbor of a vertex of $A$ belongs to $K$, so $\bI K\subseteq\bV A$. Therefore
+\[
+\frac{|\bI K|}{|K|}
+\le\frac{|\bV A|}{|A|+|\bV A|}.
+\]
+Take a sequence approaching $\hV$ and pass to the limit.
+\end{proof}
+
+\section{Sharp comparisons beyond constant face degree}\label{sec:comparisons}
+The transfer also applies when face degrees vary. Define $\Phi$ by~\eqref{eq:Phi} for admissible integer pairs.
+
+\begin{theorem}\label{thm:mixed-faces}
+Let $G$ be an infinite $d$-regular plane tessellation whose face degrees lie between finite integers $q$ and $Q$, where $5\le q\le Q$ and $1/d+1/q\le1/2$. Then
+\begin{equation}\label{eq:mixed-face-bound}
+\Phi(d,q)\le\hV(G)=\hE(G)\le\Phi(d,Q).
+\end{equation}
+Both bounds are sharp over this class. If the face degrees have no finite upper bound, the equality of the two constants and the lower bound remain valid.
+\end{theorem}
+\begin{proof}
+Oh's comparisons~\cite[Theorems~3 and~4]{Oh} give the two edge bounds. The calculation~\eqref{eq:tiling-threshold}, including its cubic case, gives $\Phi(d,q)\ge d-3$. Apply Theorem~\ref{thm:degree}. The regular tessellations $H_{d,q}$ and $H_{d,Q}$ attain the respective bounds. The lower comparison does not require an upper bound on face degrees.
+\end{proof}
+
+One can also allow varying vertex degrees. The degree-normalized edge estimate is useful here: under vertex and face lower bounds $p,q$, Oh's theorem gives
+\begin{equation}\label{eq:Oh-normalized}
+|\bE K|\ge \frac{\Phi(p,q)}p\vol(K).
+\end{equation}
+Using this bound retains more information than replacing all vertex degrees by their minimum.
+
+\begin{theorem}\label{thm:degree-contrast}
+Let $G$ be an infinite plane tessellation with
+\[
+p\le\deg(v)\le\Delta\quad(v\in V),\qquad
+\deg(F)\ge q\quad(F\text{ a face}),
+\]
+where $p,q\ge3$ are finite integers and $1/p+1/q\le1/2$. Set $c=\Phi(p,q)/p$. If
+\begin{equation}\label{eq:contrast}
+(1-c)\Delta\le3,
+\end{equation}
+then every finite nonempty $K$ satisfies
+\begin{equation}\label{eq:contrast-conclusion}
+|\bV K|\ge c\vol(K)\ge\Phi(p,q)|K|.
+\end{equation}
+Moreover,
+\begin{equation}\label{eq:contrast-equality}
+\hV^{\mathrm{vol}}(G)=\hE^{\mathrm{vol}}(G)\ge c.
+\end{equation}
+For admissible $q\ge5$, the lower bounds are sharp over every nonempty parameter class of this form containing $H_{p,q}$.
+\end{theorem}
+\begin{proof}
+Equation~\eqref{eq:Oh-normalized} and~\eqref{eq:contrast} imply~\eqref{eq:contrast-conclusion} by Corollary~\ref{cor:volume}. If $h=\hE^{\mathrm{vol}}(G)$, then $h\ge c$; consequently $(1-h)\deg(v)\le(1-c)\Delta\le3$. Apply the first assertion of Corollary~\ref{cor:volume} to obtain~\eqref{eq:contrast-equality}. On $H_{p,q}$, Theorem~\ref{thm:tiling} gives $\hV=\Phi(p,q)$ and $\hV^{\mathrm{vol}}=c$, proving sharpness in the stated range.
+\end{proof}
+
+For example, suppose every vertex degree is either $10$ or $11$ and every face degree is at least five. Then
+\[
+c=\frac{\Phi(10,5)}{10}=\sqrt{\frac8{15}},\qquad
+11(1-c)<3,
+\]
+since $8/15>64/121$. Therefore
+\[
+|\bV K|\ge\sqrt{\frac8{15}}\sum_{v\in K}\deg(v),\qquad
+\hV(G)\ge\sqrt{\frac{160}{3}}.
+\]
+Thus the vertex comparison is not confined to constant-degree tessellations. Theorem~\ref{thm:degree-contrast} is a transfer of the established normalized edge bound, not a new proof of that bound.
+
+\section{Optimality of the degree threshold}\label{sec:sharpness}
+The role of face degree five is visible in the known quadrangular values. Let $Q_d=H_{d,4}$, $d\ge5$, and write
+\[
+e_d=\hE(Q_d)=\sqrt{(d-2)(d-4)},\qquad
+v_d=\hV(Q_d)=\frac{d-4+\sqrt{d(d-4)}}2.
+\]
+The first formula is~\eqref{eq:Phi}; the second is~\cite[Theorem~23 and recurrence~(5)]{HP}.
+
+\begin{proposition}\label{prop:sharp-threshold}
+For every real $C>3$, there is a regular hyperbolic tessellation $G$ of degree $d$ such that
+\[
+\hE(G)>d-C\qquad\text{but}\qquad\hV(G)<\hE(G).
+\]
+\end{proposition}
+\begin{proof}
+We have
+\[
+e_d^2=(d-3)^2-1,
+\]
+and therefore
+\begin{equation}\label{eq:threshold-gap}
+d-3-e_d=\frac1{d-3+e_d}\longrightarrow0.
+\end{equation}
+The positive root of $P_d(x)=x^2-(d-4)x-(d-4)$ is $v_d$. Since
+\[
+P_d(e_d)=(d-4)(d-3-e_d)>0
+\]
+and the other root of $P_d$ is negative, $v_d<e_d$. Choose $d$ large enough that the quantity in~\eqref{eq:threshold-gap} is less than $C-3$. Then $e_d>d-C$, and $G=Q_d$ has the required properties.
+\end{proof}
+
+Proposition~\ref{prop:sharp-threshold} completes the optimality assertion of Theorem~\ref{thm:degree}. It concerns an absolute additive constant uniform over all degrees. It does not identify the best threshold separately at each fixed maximum degree.
+
+\section{Finite-scale and anchored forms}\label{sec:variants}
+The closure proof uses an edge inequality only on the sets it visits. This observation gives two further forms of the transfer.
+
+\subsection{A finite-scale estimate}
+\begin{proposition}\label{prop:finite-scale}
+Let $G$ be a finite or infinite simple graph of maximum degree at most $\Delta$, and let $M\ge1$ be an integer. Suppose $\Delta-3\le h\le\Delta$ and
+\begin{equation}\label{eq:local-expansion}
+|\bE S|\ge h|S|\qquad(0<|S|\le M).
+\end{equation}
+Put $c=h-\Delta+4>0$. If $0<|K|\le M$ and
+\begin{equation}\label{eq:finite-condition}
+|K|+\frac{|\bE K|-h|K|}{c}<M,
+\end{equation}
+then the two-neighbor closure of $K$ is finite, has size at most the left side of~\eqref{eq:finite-condition}, and
+\[
+|\bV K|\ge h|K|.
+\]
+A sufficient condition is $4|K|<cM$.
+\end{proposition}
+\begin{proof}
+Along the closure process the edge defect $|\bE S|-h|S|$ decreases by at least $c$. If the process were to reach a set of size $M$, its defect there would be at most
+\[
+|\bE K|-h|K|-c(M-|K|)<0,
+\]
+contrary to~\eqref{eq:local-expansion}. Hence it stops before that size and the asserted size bound follows from nonnegativity of the defect. The vertex defect is nonincreasing because $h\ge\Delta-3$, and it equals the nonnegative edge defect at termination. Finally $|\bE K|\le\Delta|K|$ gives
+\[
+|K|+\frac{|\bE K|-h|K|}{c}\le\frac4c|K|.
+\]
+\end{proof}
+
+The restriction on the starting size is necessary for this argument: a finite-graph expansion inequality valid only below half the volume cannot automatically be applied to all intermediate closure sets.
+
+\subsection{Anchored constants}
+For an infinite connected graph with a fixed root $o$, define
+\begin{align*}
+\hE^*(G,o)&=\lim_{N\to\infty}\inf\left\{\frac{|\bE K|}{|K|}:o\in K,\ K\text{ finite and connected},\ |K|\ge N\right\},\\
+\hV^*(G,o)&=\lim_{N\to\infty}\inf\left\{\frac{|\bV K|}{|K|}:o\in K,\ K\text{ finite and connected},\ |K|\ge N\right\}.
+\end{align*}
+This large-set convention for anchored expansion agrees with the one used in~\cite{BPP}.
+
+\begin{theorem}\label{thm:anchored}
+Let $G$ be infinite, connected, and simple, with maximum degree at most $\Delta$. If
+\[
+\hE^*(G,o)\ge\Delta-3,
+\]
+then $\hV^*(G,o)=\hE^*(G,o)$.
+\end{theorem}
+\begin{proof}
+Put $H=\hE^*(G,o)$. Fix $a<H$ with $a>\Delta-4$. For some $N$, all connected sets containing $o$ with size at least $N$ satisfy $|\bE S|\ge a|S|$. Begin the closure process from any such $K$. Every addition preserves connectedness and inclusion of $o$. The edge defect decreases by at least $a-\Delta+4>0$, so the process terminates after $m$ additions with
+\begin{equation}\label{eq:anchored-m}
+m\le\frac{\Delta-a}{a-\Delta+4}|K|.
+\end{equation}
+At the terminal set $C$, the two boundaries agree. Reversing the vertex-boundary update gives
+\[
+|\bV K|\ge a|K|+(a-\Delta+3)m.
+\]
+If $a\ge\Delta-3$, this is at least $a|K|$. Otherwise use~\eqref{eq:anchored-m} to obtain
+\[
+\frac{|\bV K|}{|K|}
+\ge a-\frac{(\Delta-3-a)(\Delta-a)}{a-\Delta+4}.
+\]
+Let $a\uparrow H$. When $H\ge\Delta-3$, the resulting lower bound tends to $H$, including at equality. Thus $\hV^*(G,o)\ge H$. The reverse inequality is pointwise.
+\end{proof}
+
+The strict margin in Theorem~\ref{thm:stability} is needed only for the quantitative comparison of minimizing sequences. The anchored equality above remains valid at the threshold.
+
+\section{Further questions}
+The formula~\eqref{eq:all-cases} settles the finite-faced regular tessellation calculation, but the more general transitive-plane-graph clause of Lyons--Peres Question~6.20 remains separate. The transfer theorem reduces any instance with sufficiently large edge expansion to the edge problem. When the threshold fails, as it does for hyperbolic quadrangulations, different arguments are required.
+
+Two quantitative questions remain natural. For each fixed $\Delta\ge4$, what is the weakest lower bound on $\hE$ that forces $\hV=\hE$ for every infinite simple graph of maximum degree $\Delta$? Also, at the endpoint $\hE=\Delta-3$, when do vertex-minimizing sequences have to be edge-minimizing? The present proof gives a common closed minimizing sequence at the endpoint, but its estimate for arbitrary sequences uses the positive margin $\gamma>0$.
+
+\section*{Acknowledgements}
+The research was supported by the European Research Council under the European Union's Horizon Europe research and innovation programme (grant agreement No.~101041711), the Simons Foundation as part of the Collaboration on the Mathematical and Scientific Foundations of Deep Learning, Heights Labs, Convex Nexus Capital, and the Israel Science Foundation (grants 2258/19 and 4101/25).
+
+\section*{Declaration of competing interest}
+The author holds equity in Heights Labs and in Convex Nexus Capital and has a management role at Convex Nexus Capital; both entities supported this work and are named above. These entities and the other sources of support had no role in the design of the study, its analysis, the preparation of the manuscript, or the decision to publish.
+
+\section*{Declaration of generative AI and AI-assisted technologies in the manuscript preparation process}
+During the preparation of this work the author made substantial use of generative AI tools, and describes their role here. The mathematical arguments, the computations, the exact-arithmetic verification code and the first draft of this manuscript were produced by OpenAI language-model systems working under the author's direction, as part of Math Brain, a project on the use of AI systems in mathematical research. The author set the research problem and commissioned the work; he did not supply the arguments or carry them out. The Lean~4 development accompanying this paper was produced by Claude Code (Anthropic). The author reviewed the mathematics, the code and the text, and takes full responsibility for the content of the manuscript.
+
+\section*{Code availability}
+The accompanying source package contains a reproducible exact-arithmetic checker for the local boundary updates, closure identities, algebraic thresholds, and finite-scale estimates, together with a Lean~4 development of the local boundary updates, the descent that terminates the bootstrap, the transfer inequality at a terminal set, and the threshold and quadrangular algebra. The Lean development compiles against core Lean~4 with no external library, and every theorem in it depends only on \texttt{propext}, \texttt{Classical.choice} and \texttt{Quot.sound}. It formalises the finite statements on which the proofs rest; the passage to the infinite-graph theorems is carried by the arguments in the text. No computational result is used as a substitute for a proof in the paper.
+
+\begin{thebibliography}{9}
+\bibitem{BPP}
+J.~Balogh, Y.~Peres, and G.~Pete,
+\emph{Bootstrap percolation on infinite trees and non-amenable groups},
+Combin. Probab. Comput. \textbf{15} (2006), no.~5, 715--730.
+\href{https://doi.org/10.1017/S0963548306007619}{doi:10.1017/S0963548306007619}.
+
+\bibitem{HJL}
+O.~H\"aggstr\"om, J.~Jonasson, and R.~Lyons,
+\emph{Explicit isoperimetric constants and phase transitions in the random-cluster model},
+Ann. Probab. \textbf{30} (2002), no.~1, 443--473.
+\href{https://doi.org/10.1214/aop/1020107775}{doi:10.1214/aop/1020107775}.
+
+\bibitem{HP}
+J.~Haslegrave and C.~Panagiotis,
+\emph{Site percolation and isoperimetric inequalities for plane graphs},
+Random Structures Algorithms \textbf{58} (2021), no.~1, 150--163.
+\href{https://doi.org/10.1002/rsa.20946}{doi:10.1002/rsa.20946}.
+
+\bibitem{HS}
+Y.~Higuchi and T.~Shirai,
+\emph{Isoperimetric constants of $(d,f)$-regular planar graphs},
+Interdiscip. Inform. Sci. \textbf{9} (2003), no.~2, 221--228.
+\href{https://doi.org/10.4036/iis.2003.221}{doi:10.4036/iis.2003.221}.
+
+\bibitem{LP}
+R.~Lyons and Y.~Peres,
+\emph{Probability on Trees and Networks},
+Cambridge Series in Statistical and Probabilistic Mathematics, vol.~42,
+Cambridge University Press, 2016; corrected paperback edition, 2021.
+\url{https://rdlyons.pages.iu.edu/prbtree/}.
+
+\bibitem{Oh}
+B.-G.~Oh,
+\emph{Sharp isoperimetric inequalities for infinite plane graphs with bounded vertex and face degrees},
+arXiv:2009.04394v2, 2024.
+\url{https://arxiv.org/abs/2009.04394v2}.
+\end{thebibliography}
+\end{document}

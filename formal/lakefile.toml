@@ -1,0 +1,6 @@
+name = "OuterIsoperimetry"
+version = "0.1.0"
+defaultTargets = ["OuterIsoperimetry"]
+
+[[lean_lib]]
+name = "OuterIsoperimetry"
